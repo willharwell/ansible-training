@@ -20,7 +20,7 @@
   - name: update repository index for CentOS
     dnf:
       update_cache: yes
-    when: ansible_distribution == "CentOS Stream"
+    when: ansible_distribution == "CentOS"
 
   - name: install apache2 and php packages for CentOS
     dnf:
@@ -28,4 +28,4 @@
         - httpd
         - php
       state: latest
-    when: ansible_distribution == "CentOS Stream"
+    when: ansible_distribution == "CentOS"
