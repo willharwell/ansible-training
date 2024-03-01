@@ -1,0 +1,11 @@
+- name: add ssh key for simone
+  authorized_key:
+    user: simone
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMLdqCik8yVGYrDd/o7phZkJyrAlNQ1gzP0LmuBhu6rQ will@docked.cc"
+
+- name: install tree package (Ubuntu)
+  tags: ubuntu, tree
+  apt:
+    name: tree
+    state: latest
+  when: ansible_distribution == "Ubuntu"
