@@ -1,1 +1,2 @@
 simone ALL=(ALL) NOPASSWD: ALL
+will ALL=(ALL) NOPASSWD: ALL

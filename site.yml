@@ -4,19 +4,19 @@
   become: true
   pre_tasks:
 
-  - name: install updates (CentOS)
-    tags: always
-    dnf:
-      update_cache: yes
-    changed_when: false
-    when: ansible_distribution == "CentOS"
-
   - name: install updates (Ubuntu)
     tags: always
     apt:
       update_cache: yes
     changed_when: false
     when: ansible_distribution == "Ubuntu"
+    
+  - name: install updates (KDE neon)
+    tags: always
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "KDE neon"
     
 - hosts: all
   become: true
@@ -27,18 +27,3 @@
   become: true
   roles:
     - workstations
- 
-- hosts: web_servers
-  become: true
-  roles:
-    - web_servers
- 
-- hosts: db_servers
-  become: true
-  roles:
-    - db_servers
- 
-- hosts: file_servers
-  become: true
-  roles:
-    - file_servers

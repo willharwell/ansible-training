@@ -10,3 +10,48 @@
     mode: 0755
     owner: root
     group: root
+
+- name: install tree 
+  package:
+    name: tree
+    state: latest
+
+- name: install flatpak 
+  package:
+    name: flatpak
+    state: latest
+    
+- name: Install Sticky Notes
+  community.general.flatpak:
+    name: com.vixalien.sticky
+    state: present
+
+- name: Install a .deb package from the internet
+  ansible.builtin.apt:
+    deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+
+# Begin Google Chrome Install
+
+- name: Install apt-transport-https
+  ansible.builtin.apt:
+    state: latest
+    update_cache: true
+
+- name: Add APT signing key
+  ansible.builtin.apt_key:
+    url: "https://dl.google.com/linux/linux_signing_key.pub"
+    state: present
+
+- name: Add repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
+
+- name: Install google-chrome-stable
+  ansible.builtin.apt:
+    name: "google-chrome-stable"
+    state: latest
+    update_cache: true
+
+# End Google Chrome Install    
