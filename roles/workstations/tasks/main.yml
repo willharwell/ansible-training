@@ -23,12 +23,17 @@
     
 - name: Install Sticky Notes
   community.general.flatpak:
-    name: com.vixalien.sticky
+    name: https://dl.flathub.org/repo/appstream/com.vixalien.sticky.flatpakref
     state: present
 
-- name: Install a .deb package from the internet
+- name: Install Visual Studio Code .deb package
   ansible.builtin.apt:
     deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+
+- name: Install 1Password .deb package
+  ansible.builtin.apt:
+    deb: https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
+
 
 # Begin Google Chrome Install
 
