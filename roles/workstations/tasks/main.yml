@@ -2,14 +2,36 @@
   package:
     name: unzip
 
-- name: install terraform
-  unarchive:
-    src: https://releases.hashicorp.com/terraform/1.7.4/terraform_1.7.4_linux_amd64.zip
-    dest: /usr/local/bin
-    remote_src: yes
-    mode: 0755
-    owner: root
-    group: root
+- name: install curl
+  package:
+    name: curl
+
+- name: install bat
+  apt:
+    name: bat
+
+- name: install neofetch
+  apt:
+    name: neofetch    
+
+- name: install git
+  package:
+    name: git
+
+- name: Gnome Software
+  apt:
+    name: gnome-software
+  when: ansible_distribution == "Ubuntu"
+
+- name: Software Flatpak Plugin
+  apt:
+    name: gnome-software-plugin-flatpak
+  when: ansible_distribution == "Ubuntu"
+
+- name: Software Snap Plugin
+  apt:
+    name: gnome-software-plugin-snapd
+  when: ansible_distribution == "Ubuntu"
 
 - name: install tree 
   package:

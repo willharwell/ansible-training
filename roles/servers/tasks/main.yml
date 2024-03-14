@@ -1,0 +1,30 @@
+- name: install unzip
+  package:
+    name: unzip
+
+- name: install curl
+  package:
+    name: curl
+
+- name: install bat
+  apt:
+    name: bat
+
+- name: install neofetch
+  apt:
+    name: neofetch    
+
+- name: install git
+  package:
+    name: git
+
+- name: install tree 
+  package:
+    name: tree
+    state: latest
+
+- name: install flatpak 
+  package:
+    name: flatpak
+    state: latest
+    

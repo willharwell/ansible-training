@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- hosts: new
+  remote_user: will
   become: true
   pre_tasks:
 
@@ -9,10 +10,11 @@
     apt:
       upgrade: dist
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
+#    when: ansible_distribution == "Ubuntu"
 
 
-- hosts: all
+- hosts: new
+  remote_user: will
   become: true
   tasks:
 
@@ -36,3 +38,43 @@
       owner: root
       group: root
       mode: 0440
+
+  - name: Remove root SSH access
+    lineinfile: 
+      dest: /etc/ssh/sshd_config 
+      regexp: "^PermitRootLogin" 
+      line: "PermitRootLogin no" 
+      state: present
+#    notify: restart ssh
+
+  - name: Remove password SSH access
+    lineinfile: 
+      dest: /etc/ssh/sshd_config 
+      regexp: "^PasswordAuthentication" 
+      line: "PasswordAuthentication no" 
+      state: present
+
+  - name: Only Allow will, simone SSH access
+    lineinfile:
+      path: "/etc/ssh/sshd_config"
+      line: "AllowUsers will simone"
+
+  - name: Add aliases to .bashrc
+    blockinfile:
+      path: /home/will/.bashrc
+      block: |
+        alias cls='clear'
+        alias hig='history |grep '
+        alias quickgui='/usr/local/bin/quickgui &'
+        alias inst='sudo apt install '
+        alias upgrade='sudo apt update; sudo apt upgrade -y'
+        alias bat='batcat'
+        function cheat() { curl -m 7 "http://cheat.sh/$1" |more; }
+        HISTTIMEFORMAT="%m/%d/%y %T  "
+
+  - name: Reboot the server
+    command: /sbin/reboot 
+
+#  handlers:
+#  - name: restart ssh
+#    service: name=ssh state=restarted

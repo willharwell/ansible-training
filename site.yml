@@ -10,19 +10,19 @@
       update_cache: yes
     changed_when: false
     when: ansible_distribution == "Ubuntu"
-    
+
   - name: install updates (KDE neon)
     tags: always
     apt:
       update_cache: yes
     changed_when: false
     when: ansible_distribution == "KDE neon"
-    
-- hosts: all
-  become: true
-  roles:
-    - base
-    
+
+#- hosts: all
+#  become: true
+#  roles:
+#    - base
+
 - hosts: workstations
   become: true
   roles:
